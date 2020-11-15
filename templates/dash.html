@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% for message in messages %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endfor %}
+<div class="row">
+
+    <div class="col-md-6">
+        <h2>Welcome {{request.user.username}}</h2>
+
+        <a href="{% url 'logout' %}"><button type="submit" class="btn btn-dark">Log Out</button></a>
+
+        <h4 class=" mt-5">Manage Employees</h4>
+        <div class="card" style="width: 18rem;">
+
+            <div class="card-body">
+                <h5 class="card-title">Total Reward From Reffers</h5>
+                <strong class="card-text">Rs.{{reward}}</strong><br><br>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-6 mt-5 pt-4">
+
+
+        <h4 class=" mt-5">Manage Employees</h4>
+        <div class="card" style="width: 18rem;">
+
+            <div class="card-body">
+                <h5 class="card-title">Total Amount From Product Purchase</h5>
+                <strong class="card-text">Rs.{{total}}</strong><br><br>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="input-group mb-3 mt-4">
+            <label for="" class="pt-2">Refferel Code</label>
+            <input type="text" id="myInput" disabled name="username" value="{{request.user}}" class="form-control"
+                placeholder="Search for First name">
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+
+
+
+<div id="nodata" style="display: none;" class="mt-5">
+    <h2 class="text-center">Sorry ..No data is found for the selected date</h2>
+</div>
+<table class="table table-striped table-responsive mt-5" id="myTable">
+    <thead>
+        <tr>
+            <th scope="col">Product Id</th>
+            <th scope="col">Image</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Price</th>
+
+
+            <th scope="col">Sharable Link</th>
+        </tr>
+    </thead>
+    <tbody id="tb">
+
+        {% for product in products %}
+
+
+
+        <tr>
+            <td>{{product.id}}</td>
+            <td><img width="100" src="{% static 'assets/img' %}/{{product.image}}" alt=""></td>
+            <td>{{product.product_name}}</td>
+            <td>{{product.price}}</td>
+
+            <td>{{ request.META.HTTP_HOST }}/{{"view"}}/{{product.id}}/{{product.user}}</td>
+
+
+
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#category"> Add new product</button>
+<div class="modal fade right" id="category" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" data-backdrop="false">
+    <div class="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <p class="heading lead " style="display: inline;">Add new Product</p>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">×</span>
+                </button>
+            </div>
+
+
+            <form action="{% url 'addproduct' %}" method="POST" style="padding: 2em;" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+
+                        <input type="text" class="form-control" id="productname" name="productname"
+                            placeholder="Product Name" required>
+                    </div>
+                    <div class="form-group col-md-6">
+
+                        <input type="text" class="form-control" id="price" name="price" placeholder="Price" required>
+                    </div>
+                </div>
+
+
+                <div class="form-group col-md-12">
+                    <label for="password">Image</label>
+                    <input type="file" class="form-control" id="image" name="image" placeholder="Image" required>
+                </div>
+
+                <div class="modal-footer justify-content-center mt-4">
+                    <button type="submit" class="btn btn-primary waves-effect waves-light">Add</button>
+
+                    <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Cancel</a>
+                </div>
+            </form>
+
+        </div>
+
+
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+<script>
+    var copyText = document.getElementById("fom").value;
+    var sharebtn = document.getElementById('sharebtn')
+    $(sharebtn).click(() => {
+        copyText.select();
+        copyText.setSelectionRange(0, 99999)
+        document.execCommand("copy");
+        alert("Copied the text: " + copyText.value);
+    })
+
+</script>
+
+{% endblock content %}

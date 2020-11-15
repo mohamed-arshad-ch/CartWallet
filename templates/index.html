@@ -2,11 +2,16 @@
 
 
 {% block content %}
-
+{% for message in messages %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endfor %}
 <div class="col-12 col-md-6 mx-auto bg-light p-4 mt-5">
-   
-    <form method="POST" action="/">
-        <h4>Admin Login</h4>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        <h4>USER Login</h4>
         <div class="form-group">
             <label for="username">User name</label>
             <input type="text" name="username" class="form-control" id="username" placeholder="username" required>
@@ -15,12 +20,11 @@
             <label for="password">Password</label>
             <input type="password" class="form-control" name="password" id="password" placeholder="password" required>
         </div>
-        <button type="submit"  class="btn btn-primary btn-block mb-2">Login</button>
+        <button type="submit" class="btn btn-primary btn-block mb-2">Login</button>
     </form>
-    <a href="{% url 'register' %}" >Create New Account</a>
+    <a href="{% url 'register' %}">Create New Account</a>
 
-    
+
 </div>
-    
+
 {% endblock content %}
-    

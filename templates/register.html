@@ -5,29 +5,86 @@
 
 <div class="col-12 col-md-6 mx-auto bg-light p-4 mt-5">
 
-    <form method="POST" action="/">
+    <form method="POST" action="">
+        {% csrf_token %}
         <h4>Admin Login</h4>
         <div class="form-group">
-            <label for="username">User name</label>
-            <input type="text" name="username" class="form-control" id="username" placeholder="username" required>
+
+            <input type="text" name="fullname" class="form-control" id="fullname" placeholder="Full Name" required>
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
+
+            <input type="text" name="username" class="form-control" id="username" placeholder="Username" required>
+        </div>
+        <div class="form-group">
+
+            <input type="email" name="email" class="form-control" id="email" placeholder="E-mail" required>
+        </div>
+        <div class="form-group">
+
+            <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Mobile Number" required>
+        </div>
+        <div id="moberrror">
+
+        </div>
+        <div class="form-group">
+
             <input type="password" class="form-control" name="password" id="password" placeholder="password" required>
         </div>
-        <div class="form-group">
-            <label for="username">User name</label>
-            <input type="text" name="username" class="form-control" id="username" placeholder="username" required>
+        <div id="passerrror">
+
         </div>
-        <div class="form-group">
-            <label for="username">Mobile Number</label>
-            <input type="tel" name="username" class="form-control" id="phone" placeholder="username" required>
+
+        <a id="reffcode">Do You have Refferal Code ?</a>
+        <div class="form-group" id="reffdic">
+
+            <!-- <input type="password" class="form-control"  name="password" id="password" placeholder="password" required> -->
         </div>
+        <br>
+        <br>
         <button type="submit" class="btn btn-primary btn-block mb-2">register</button>
     </form>
     <a href="{% url 'index' %}">You Have Alredy An Account ?</a>
-    
+
 
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+
+<script>
+    $("#password").on("change paste keyup", function () {
+        const da = $(this).val();
+
+        if (da.length < 8) {
+            var html = '<p style="color:red;">Minimum 8 Characters</p>'
+            $('#passerrror').html(html)
+        } else if (da.length >= 8) {
+            var html = '<p style="color:green;">Valid Password</p>'
+            $('#passerrror').html(html)
+        }
+    });
+
+
+    $("#mobile").on("change paste keyup", function () {
+        const da = $(this).val();
+
+        if (da.length < 10) {
+            var html = '<p style="color:red;">Enter Valid Mobile Number</p>'
+            $('#moberrror').html(html)
+        } else if (da.length > 10) {
+            var html = '<p style="color:red;"> This Mobile Number is Too long</p>'
+            $('#moberrror').html(html)
+        } else if (da.length == 10) {
+            var html = '<p style="color:green;">Valid Mobile number</p>'
+            $('#moberrror').html(html)
+        }
+    });
+
+    const reffbtn = document.getElementById('reffcode')
+    $(reffbtn).click(() => {
+        const html = '<input type="text" class="form-control" value=""  name="reffcode" id="reffers" placeholder="Refference Code">';
+        $('#reffdic').html(html);
+    })
+</script>
 
 {% endblock content %}

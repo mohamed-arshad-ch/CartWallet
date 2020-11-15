@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 
@@ -6,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
-    <link rel="stylesheet" href="http://demos.codexworld.com/international-telephone-input-with-country-flags-dial-codes-jquery/css/intlTelInput.css">
+   <link rel="stylesheet" href="{% static 'css/intlTelInput.css' %}">
     <title>Admin</title>
 </head>
 
@@ -20,9 +21,10 @@
             
 
     </div>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="http://demos.codexworld.com/international-telephone-input-with-country-flags-dial-codes-jquery/js/utils.js"></script>
-    <script src="http://demos.codexworld.com/international-telephone-input-with-country-flags-dial-codes-jquery/js/intlTelInput.js"></script>
+    <script src="{% static 'js/intlTelInput.js' %}"></script>
+    <script src="{% static 'js/utils.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
